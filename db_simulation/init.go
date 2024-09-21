@@ -44,14 +44,9 @@ func read_tiger(db *gorm.DB) {
 	}
 }
 
-func schema_show(db *gorm.DB) {
+func table_show(db *gorm.DB) {
 	var tables []string
 	db.Raw("SELECT name FROM sqlite_master WHERE type='table'").Scan(&tables)
 	fmt.Println("Tables in the database:", tables)
 	fmt.Println("------------------***-----------------")
-
-	var schema string
-	tableName := "tigermen" // 这里你可以替换成任意表名
-	db.Raw("SELECT sql FROM sqlite_master WHERE type='table' AND name = ?", tableName).Scan(&schema)
-	fmt.Printf("Schema of table %s:\n%s\n", tableName, schema)
 }
