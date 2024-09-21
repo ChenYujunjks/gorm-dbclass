@@ -14,11 +14,9 @@ func cli_mydb(db *gorm.DB) {
 	fmt.Println("|您现在位于simulation的主模块---------|")
 	fmt.Println("|请输入一个数字来选择要运行的函数: |")
 	fmt.Println("|1: 查看数据库'simulation'的tiger数据库的数据: |")
-	fmt.Println("|112: 查看数据库里面所有的schema     |")
-	fmt.Println("|111:Initialize the database  |")
+	fmt.Println("|2: 查看table schema |")
+	fmt.Println("|3: TBD 查看数据库'simulation'的tiger数据库的数据: |")
 	fmt.Println("|0: 退出                           |")
-	fmt.Println("|----------------------------------|")
-
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Println("---------------------------------->>")
