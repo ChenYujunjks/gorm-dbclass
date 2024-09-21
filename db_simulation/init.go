@@ -48,5 +48,4 @@ func table_show(db *gorm.DB) {
 	var tables []string
 	db.Raw("SELECT name FROM sqlite_master WHERE type='table'").Scan(&tables)
 	fmt.Println("Tables in the database:", tables)
-	fmt.Println("------------------***-----------------")
 }

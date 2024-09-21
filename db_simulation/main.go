@@ -10,7 +10,5 @@ func main() {
 	if err != nil {
 		panic("failed to connect database")
 	}
-
 	cli_mydb(db)
-
 }

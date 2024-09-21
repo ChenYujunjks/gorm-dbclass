@@ -36,15 +36,18 @@ func cli_mydb(db *gorm.DB) {
 			//Initialize_seed(db)
 			read_tiger(db)
 		case 2:
+			var schema1 string
+			table_show(db)
 			fmt.Println("---------------------------------->>")
 			fmt.Print("请输入要查看的table schema: ")
-			input, _ := reader.ReadString('\n')
-			input = strings.TrimSpace(input) // 去除空白字符
-			schema_show(db, input)
+			table_input, _ := reader.ReadString('\n')
+			table_input = strings.TrimSpace(table_input) // 去除空白字符
+			db.Raw("SELECT sql FROM sqlite_master WHERE type='table' AND name = ?", table_input).Scan(&schema1)
+			fmt.Printf("Schema of table %s:\n%s\n", table_input, schema1)
 		case 3:
 			fmt.Println("|--------------tbd------------|")
-		case 112:
-			table_show(db)
+		case 4:
+			fmt.Println("tbd")
 		case 111:
 			Initialize_seed(db)
 		case 0:
@@ -55,15 +58,4 @@ func cli_mydb(db *gorm.DB) {
 		}
 	}
 
-}
-
-func schema_show(db *gorm.DB, table_input string) {
-	var tables []string
-	var schema1 string
-	db.Raw("SELECT name FROM sqlite_master WHERE type='table'").Scan(&tables)
-	fmt.Println("Tables in the database:", tables)
-	fmt.Println("------------------***-----------------")
-
-	db.Raw("SELECT sql FROM sqlite_master WHERE type='table' AND name = ?", table_input).Scan(&schema1)
-	fmt.Printf("Schema of table %s:\n%s\n", table_input, schema1)
 }
