@@ -10,8 +10,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func cli_mydb(db *gorm.DB) {
-	fmt.Println("|您现在位于simulation的主模块---------|")
+func controller(db *gorm.DB) {
+	fmt.Println("|您现在位于simulation的主模块-------|")
 	fmt.Println("|请输入一个数字来选择要运行的函数: |")
 	fmt.Println("|1: 查看数据库'simulation'的tiger数据库的数据: |")
 	fmt.Println("|2: 查看table schema |")
