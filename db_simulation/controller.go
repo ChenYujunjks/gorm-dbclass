@@ -30,7 +30,6 @@ func controller(db *gorm.DB) {
 			fmt.Println("请输入有效的数字！")
 			continue
 		}
-
 		switch choice {
 		case 1:
 			//Initialize_seed(db)
