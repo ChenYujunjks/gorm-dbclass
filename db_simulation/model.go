@@ -13,5 +13,5 @@ type Book struct {
 	Title    string `gorm:"size:255;not null"`
 	Year     int
 	Price    float64
-	AuthorID uint // 外键，关联到 `author` 表的 `id`
+	AuthorID uint  // 外键，关联到 `author` 表的 `id`
 }
