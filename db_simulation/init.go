@@ -31,6 +31,40 @@ func Initialize_seed(db *gorm.DB) {
 			db.Create(&building) // 只有在数据库中不存在该记录时才插入
 		}
 	}
+	// Automatically migrate Employee and Department
+	db.AutoMigrate(&Employee{}, &Department{})
+
+	// Insert initial data for Department
+	initialDepartments := []Department{
+		{Name: "HR"},
+		{Name: "Engineering"},
+		{Name: "Marketing"},
+		{Name: "Sales"},
+	}
+
+	for _, department := range initialDepartments {
+		var existing Department
+		result := db.Where("name = ?", department.Name).First(&existing)
+		if result.RowsAffected == 0 {
+			db.Create(&department) // 如果不存在则插入
+		}
+	}
+
+	// Insert initial data for Employee
+	initialEmployees := []Employee{
+		{Name: "Alice", DepartmentID: 1},   // HR
+		{Name: "Bob", DepartmentID: 2},     // Engineering
+		{Name: "Charlie", DepartmentID: 3}, // Marketing
+		{Name: "David", DepartmentID: 4},   // Sales
+	}
+
+	for _, employee := range initialEmployees {
+		var existing Employee
+		result := db.Where("name = ?", employee.Name).First(&existing)
+		if result.RowsAffected == 0 {
+			db.Create(&employee) // 如果不存在则插入
+		}
+	}
 }
 
 func read_tiger(db *gorm.DB) {
