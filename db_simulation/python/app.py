@@ -24,9 +24,8 @@ class CustomerPhone(db.Model):
     customer_email = db.Column(db.String(120), db.ForeignKey('customers.email'), nullable=False)
     phone = db.Column(db.String(20))
 
-
-@app.before_first_request
-def create_tables():
+# 初始化数据库和插入数据
+def init_db():
     db.create_all()
 
     # 插入数据
@@ -69,4 +68,8 @@ def get_customers():
     return "<br>".join(output)
 
 if __name__ == '__main__':
+    # 初始化数据库并插入数据
+    with app.app_context():
+        init_db()
+    
     app.run(debug=True)
