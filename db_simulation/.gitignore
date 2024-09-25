@@ -1,1 +1,5 @@
+# Ignore all .db files
+*.db
+
+# Ignore simulation.db specifically (this is redundant since *.db already covers it, but can add for clarity)
 simulation.db
