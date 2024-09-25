@@ -60,6 +60,28 @@ func Initialize_seed(db *gorm.DB) {
 			db.Create(&employee) // 如果不存在则插入
 		}
 	}
+
+	db.AutoMigrate(&Customer{}, &CustomerPhone{})
+
+	// 插入 Customer 数据
+	db.Create(&Customer{
+		Email:   "alice@example.com",
+		Name:    "Alice Wang",
+		Street:  "Main St",
+		ZipCode: "10001",
+	})
+
+	// 插入 CustomerPhone 数据
+	db.Create(&CustomerPhone{
+		CustomerEmail: "alice@example.com",
+		Phone:         "123-456-7890",
+	})
+
+	db.Create(&CustomerPhone{
+		CustomerEmail: "alice@example.com",
+		Phone:         "098-765-4321",
+	})
+
 }
 
 func read_tiger(db *gorm.DB) {

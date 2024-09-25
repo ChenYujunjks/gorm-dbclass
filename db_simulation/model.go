@@ -4,20 +4,25 @@ type tigerman struct {
 	ID       uint `gorm:"primaryKey"`
 	Building string
 }
-type Author struct {
-	ID      uint   `gorm:"primaryKey;autoIncrement"`
-	Name    string `gorm:"size:255;not null"`
-	Address string
-	URL     string
-	Books   []Book `gorm:"foreignKey:AuthorID"` // 一对多关系
+
+// Customer 表结构
+type Customer struct {
+	Email   string `gorm:"primaryKey;size:100"` // 主键
+	Name    string `gorm:"size:100"`
+	Street  string `gorm:"size:100"`
+	ZipCode string `gorm:"size:10"`
+
+	Phones []CustomerPhone `gorm:"foreignKey:CustomerEmail;references:Email"` // 通过外键定义与 CustomerPhone 的一对多关系
 }
 
-type Book struct {
-	ISBN     string `gorm:"primaryKey;size:13"`
-	Title    string `gorm:"size:255;not null"`
-	Year     int
-	Price    float64
-	AuthorID uint // 外键，关联到 `author` 表的 `id`
+// CustomerPhone 表结构
+type CustomerPhone struct {
+	ID            uint   `gorm:"primaryKey;autoIncrement"` // 主键
+	CustomerEmail string `gorm:"size:100"`                 // 外键字段，关联 Customer 表的 Email 字段
+	Phone         string `gorm:"size:20"`
+
+	// 通过 foreignKey 关联到 Customer 表的 Email 字段
+	Customer Customer `gorm:"foreignKey:CustomerEmail;references:Email;constraint:OnUpdate:CASCADE,OnDelete:SET NULL"`
 }
 
 // JOIN operation
