@@ -15,7 +15,8 @@ func controller(db *gorm.DB) {
 	fmt.Println("|请输入一个数字来选择要运行的函数: |")
 	fmt.Println("|1: 查看数据库'simulation'的tiger数据库的数据: |")
 	fmt.Println("|2: 查看table schema |")
-	fmt.Println("|3: Week3 Relation Operation |")
+	fmt.Println("|3: 查看一个table里面的所有元素 |")
+	fmt.Println("|4: Week3 Relation Operation |")
 	fmt.Println("|0: 退出                           |")
 	reader := bufio.NewReader(os.Stdin)
 	for {
@@ -44,9 +45,9 @@ func controller(db *gorm.DB) {
 			db.Raw("SELECT sql FROM sqlite_master WHERE type='table' AND name = ?", table_input).Scan(&schema1)
 			fmt.Printf("Schema of table %s:\n%s\n", table_input, schema1)
 		case 3:
-			relation_join(db)
+			show_all(db)
 		case 4:
-			fmt.Println("tbd")
+			relation_join(db)
 		case 111:
 			Initialize_seed(db)
 		case 0:
@@ -56,5 +57,4 @@ func controller(db *gorm.DB) {
 			fmt.Println("无效输入，请重新输入")
 		}
 	}
-
 }
