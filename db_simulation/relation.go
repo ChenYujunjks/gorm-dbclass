@@ -31,9 +31,9 @@ func show_all(db *gorm.DB) {
 	fmt.Println("---------------------------------->>")
 	fmt.Print("请输入要查看的table: ")
 	table_inpu1, _ := reader.ReadString('\n')
-	table_inpu1 = strings.TrimSpace(table_inpu1) // 去除空白字符
+	table_inpu1 = strings.TrimSpace(table_inpu1)
 
-	// 动态查询表中的所有记录
+	// **动态查询表中的所有记录
 	var results []map[string]interface{}
 	err := db.Table(table_inpu1).Find(&results).Error
 	if err != nil {

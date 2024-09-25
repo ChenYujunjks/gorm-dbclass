@@ -7,11 +7,6 @@ import (
 )
 
 // Define the tigerman struct to represent the table
-type tigerman struct {
-	ID       uint `gorm:"primaryKey"`
-	Building string
-}
-
 func Initialize_seed(db *gorm.DB) {
 	// Automatically migrate the schema (create the table)
 	db.AutoMigrate(&tigerman{})

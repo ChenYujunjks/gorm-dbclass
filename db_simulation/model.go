@@ -1,5 +1,9 @@
 package main
 
+type tigerman struct {
+	ID       uint `gorm:"primaryKey"`
+	Building string
+}
 type Author struct {
 	ID      uint   `gorm:"primaryKey;autoIncrement"`
 	Name    string `gorm:"size:255;not null"`
