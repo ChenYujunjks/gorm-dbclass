@@ -47,9 +47,6 @@ func show_all(db *gorm.DB) {
 	}
 	fmt.Printf("Records in table %s:\n", table_inpu1)
 	for _, row := range results {
-		for key, value := range row {
-			fmt.Printf("%s: %v\t", key, value)
-		}
-		fmt.Println()
+		fmt.Printf("%s \n", row)
 	}
 }
