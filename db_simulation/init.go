@@ -23,10 +23,10 @@ func Initialize_seed(db *gorm.DB) {
 		var existing tigerman
 		result := db.Where("building = ?", building.Building).First(&existing)
 		if result.RowsAffected == 0 {
-			db.Create(&building) // 只有在数据库中不存在该记录时才插入
+			db.Create(&building) // Only insert if the record does not exist
 		}
 	}
-	// Automatically migrate Employee and Department
+	// relational database data
 	db.AutoMigrate(&Employee{}, &Department{})
 
 	// Insert initial data for Department
@@ -57,13 +57,13 @@ func Initialize_seed(db *gorm.DB) {
 		var existing Employee
 		result := db.Where("name = ?", employee.Name).First(&existing)
 		if result.RowsAffected == 0 {
-			db.Create(&employee) // 如果不存在则插入
+			db.Create(&employee)
 		}
 	}
 
 	db.AutoMigrate(&Customer{}, &CustomerPhone{})
 
-	// 插入 Customer 数据
+	// Insert initial data for Customer
 	db.Create(&Customer{
 		Email:   "alice@example.com",
 		Name:    "Alice Wang",
@@ -81,7 +81,24 @@ func Initialize_seed(db *gorm.DB) {
 		CustomerEmail: "alice@example.com",
 		Phone:         "098-765-4321",
 	})
+	// 新增 Customer 和 CustomerPhone 示例
+	// Insert a new customer Bob Li and his phone numbers
+	db.Create(&Customer{
+		Email:   "bob@example.com",
+		Name:    "Bob Li",
+		Street:  "Market St",
+		ZipCode: "94105",
+	})
 
+	db.Create(&CustomerPhone{
+		CustomerEmail: "bob@example.com",
+		Phone:         "555-555-5555",
+	})
+
+	db.Create(&CustomerPhone{
+		CustomerEmail: "bob@example.com",
+		Phone:         "555-123-4567",
+	})
 }
 
 func read_tiger(db *gorm.DB) {
